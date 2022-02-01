@@ -1,8 +1,7 @@
-бот
 import telebot
 import random
 
-bot = telebot.TeleBot('5138000973:AAHl5INx1bFA06VLTvnLtIAEHwlpRnB7Uhw')
+bot = telebot.TeleBot('5062900561:AAG1jaNwlE5Ui1NhBDQkYVfdSisRMHiPlTY')
 
 greetings = ['Привет, ', 'Салют, ', 'Хай, ', 'Приветики-пистолетики, ']
 names = ['сударь', 'чебуречек']
@@ -11,20 +10,11 @@ keyboard.row('HELP ME PLS', 'Донатик')
 keyboard2 = telebot.types.ReplyKeyboardMarkup(True)
 keyboard2.row('if/elif/else', 'for', 'while')
 keyboard2.row('class', 'def', 'import')
+keyboard2.row('2D massives', 'multiplicity')
+keyboard2.row('massives', 'dictionary', 'strings')
 keyboardback = telebot.types.ReplyKeyboardMarkup(True)
 keyboardback.row('Назад')
-keyboardelif = telebot.types.ReplyKeyboardMarkup(True)
-keyboardelif.row('Примеры if/elif/else')
-keyboardfor = telebot.types.ReplyKeyboardMarkup(True)
-keyboardfor.row('Примеры for')
-keyboardwhile = telebot.types.ReplyKeyboardMarkup(True)
-keyboardwhile.row('Примеры while')
-keyboardclass = telebot.types.ReplyKeyboardMarkup(True)
-keyboardclass.row('Примеры class')
-keyboarddef = telebot.types.ReplyKeyboardMarkup(True)
-keyboarddef.row('Примеры def')
-keyboardimport = telebot.types.ReplyKeyboardMarkup(True)
-keyboardimport.row('Примеры import')
+keyexam = telebot.types.ReplyKeyboardMarkup(True)
 
 
 @bot.message_handler(commands=['start'])
@@ -42,6 +32,7 @@ def send_text(message):
         bot.send_message(message.chat.id, 'Выберите одну из предложенных конструкций', reply_markup=keyboard2)
 
     elif message.text.lower() == 'if/elif/else':
+        keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Конструкция if/elif/else позволяет делать ответвления в ходе программы. Программа уходит в ветку при выполнении определенного условия.
 
 В этой конструкции только if является обязательным, elif и else опциональны:
@@ -51,7 +42,7 @@ def send_text(message):
 С помощью elif можно сделать несколько разветвлений, то есть, проверять входящие данные на разные условия.
 Блок elif это тот же if, но только следующая проверка. Грубо говоря, это «а если …»
 Блоков elif может быть много.
-Блок else выполняется в том случае, если ни одно из условий if или elif не было истинным.""", reply_markup=keyboardelif)
+Блок else выполняется в том случае, если ни одно из условий if или elif не было истинным.""", reply_markup=keyexam)
     elif message.text.lower() == 'примеры if/elif/else':
         bot.send_message(message.chat.id, """if age == 15:
     print('Если 15 лет')
@@ -62,10 +53,11 @@ else:
     elif message.text.lower() == 'назад':
         bot.send_message(message.chat.id, 'Возварщаю вас назад', reply_markup=keyboard2)
     elif message.text.lower() == 'for':
+        #тут написать keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Цикл for в языке программирования Python предназначен для перебора элементов структур данных и некоторых других объектов. Это не цикл со счетчиком, каковым является for во многих других языках.
 
 Что значит перебор элементов? Например, у нас есть список, состоящий из ряда элементов. Сначала берем из него первый элемент, затем второй, потом третий и так далее. С каждым элементом мы выполняем одни и те же действия в теле for. Нам не надо извлекать элементы по их индексам и заботиться, на каком из них список заканчивается, и следующая итерация бессмысленна. Цикл for сам переберет и определит конец.""",
-                         reply_markup=keyboardfor)
+                         reply_markup=keyboardfor) #тут заменить на keyexam
     elif message.text.lower() == 'примеры for':
         bot.send_message(message.chat.id, """spisok = [10, 40, 20, 30]
 for element in spisok:
@@ -136,10 +128,12 @@ print("Employee.__dict__:", Employee.__dict__) """, reply_markup=keyboardback)
 
     elif message.text.lower() == 'донатик':
         try:
-            bot.send_photo(message.chat.id, photo=open('465549.png', 'rb'))
-        except:
+            bot.send_photo(message.chat.id, 'https://i.ibb.co/pQbnQb6/photo-2022-02-01-20-44-26.jpg')
+        except Exception as error:
             bot.send_message(message.chat.id, 'ошибка')
+            bot.send_message(message.chat.id, error)
     else:
         bot.send_message(message.chat.id, 'Неизвестная команда')
+
 
 bot.polling()
