@@ -1,4 +1,4 @@
-кекеекке
+бот
 import telebot
 import random
 
