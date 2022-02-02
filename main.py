@@ -1,37 +1,40 @@
 import telebot
 import random
-
-bot = telebot.TeleBot('5062900561:AAG1jaNwlE5Ui1NhBDQkYVfdSisRMHiPlTY')
-
-greetings = ['Привет, ', 'Салют, ', 'Хай, ', 'Приветики-пистолетики, ']
-names = ['сударь', 'чебуречек']
+#TOKEN
+bot = telebot.TeleBot('5138000973:AAHl5INx1bFA06VLTvnLtIAEHwlpRnB7Uhw')
+#Генерация приветсвия
+greetings = ['Привет, ', 'Салют, ', 'Хай, ', 'Приветики-пистолетики, ', 'Приветсвую, ', 'Как жизнь, ']
+names = ['сударь', 'чебуречек', 'чел', 'чувак']
+#Создание кастомной клавиатуры
 keyboard = telebot.types.ReplyKeyboardMarkup(True)
 keyboard.row('HELP ME PLS', 'Донатик')
 keyboard2 = telebot.types.ReplyKeyboardMarkup(True)
 keyboard2.row('if/elif/else', 'for', 'while')
 keyboard2.row('class', 'def', 'import')
-keyboard2.row('2D massives', 'multiplicity')
-keyboard2.row('massives', 'dictionary', 'strings')
+keyboard2.row('2D arrays', 'multiplicity')
+keyboard2.row('arrays', 'dictionary', 'strings')
 keyboardback = telebot.types.ReplyKeyboardMarkup(True)
 keyboardback.row('Назад')
 keyexam = telebot.types.ReplyKeyboardMarkup(True)
 
 
 @bot.message_handler(commands=['start'])
+#Приветствие
 def start_message(message):
     bot.send_message(message.chat.id,
                      'P/s это очень ранняя версия бота, поэтому тут много не смешных шуток, граматических ошибок и т.д')
     bot.send_message(message.chat.id,
-                     f'{random.choice(greetings) + random.choice(names)}, я крутой бот Глент, помогу тебе вспомнить синтаксис Python, для тупых: help',
+                     f'{random.choice(greetings) + random.choice(names)}, я крутой бот Глент, помогу тебе вспомнить синтаксис Python',
                      reply_markup=keyboard)
 
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
+    #Хелп
     if message.text.lower() == 'help me pls':
         bot.send_message(message.chat.id, 'Выберите одну из предложенных конструкций', reply_markup=keyboard2)
 
-
+    #if/elif/else
     elif message.text.lower() == 'if/elif/else':
         keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
@@ -45,6 +48,7 @@ def send_text(message):
 Блок elif это тот же if, но только следующая проверка. Грубо говоря, это «а если …»
 Блоков elif может быть много.
 Блок else выполняется в том случае, если ни одно из условий if или elif не было истинным.""", reply_markup=keyexam)
+    #Примеры if/elif/else
     elif message.text.lower() == 'примеры if/elif/else':
         bot.send_message(message.chat.id, """if age == 15:
     print('Если 15 лет')
@@ -52,34 +56,39 @@ elif age == 32:
     print('Иначе если 32 года')
 else:
     print('Иначе')""", reply_markup=keyboardback)
+    #Назад
     elif message.text.lower() == 'назад':
         bot.send_message(message.chat.id, 'Возварщаю вас назад', reply_markup=keyboard2)
+    #for
     elif message.text.lower() == 'for':
         keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Цикл for в языке программирования Python предназначен для перебора элементов структур данных и некоторых других объектов. Это не цикл со счетчиком, каковым является for во многих других языках.
 
 Что значит перебор элементов? Например, у нас есть список, состоящий из ряда элементов. Сначала берем из него первый элемент, затем второй, потом третий и так далее. С каждым элементом мы выполняем одни и те же действия в теле for. Нам не надо извлекать элементы по их индексам и заботиться, на каком из них список заканчивается, и следующая итерация бессмысленна. Цикл for сам переберет и определит конец.""",
-                         reply_markup=keyexam) #тут заменить на keyexam
+                         reply_markup=keyexam)
+    #Примеры for
     elif message.text.lower() == 'примеры for':
         bot.send_message(message.chat.id, """spisok = [10, 40, 20, 30]
+
 for element in spisok:
     print(element + 2)""", reply_markup=keyboardback)
-
+    #while
     elif message.text.lower() == 'while':
         keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id,
                          """Цикл while (“пока”) позволяет выполнить одну и ту же последовательность действий, пока проверяемое условие истинно. Условие записывается до тела цикла и проверяется до выполнения тела цикла. Как правило, цикл while используется, когда невозможно определить точное значение количества проходов исполнения цикла.""",
                          reply_markup=keyexam)
-
+    #Примеры while
     elif message.text.lower() == 'примеры while':
         bot.send_message(message.chat.id, """i = 1
+
 while i <= 10:
     print(i ** 2)
     i += 1
 """, reply_markup=keyboardback)
-
+    #class
     elif message.text.lower() == 'class':
         keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
@@ -91,6 +100,7 @@ Python соответствует принципам объектно-ориен
 
 Это не является обязательным - мы можем пользоваться только встроенными объектами. Однако ООП полезно при долгосрочной разработке программы несколькими людьми, так как упрощает понимание кода.""",
                          reply_markup=keyexam)
+    #Примеры class
     elif message.text.lower() == 'примеры class':
         bot.send_message(message.chat.id, """
 class Employee:   
@@ -113,17 +123,20 @@ print("Employee.__name__:", Employee.__name__)
 print("Employee.__module__:", Employee.__module__)  
 print("Employee.__bases__:", Employee.__bases__)  
 print("Employee.__dict__:", Employee.__dict__) """, reply_markup=keyboardback)
+    #def
     elif message.text.lower() == 'def':
         keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id,
                          """Функция в python - объект, принимающий аргументы и возвращающий значение. Обычно функция определяется с помощью инструкции def.""",
                          reply_markup=keyexam)
+    #Примеры def
     elif message.text.lower() == 'примеры def':
         bot.send_message(message.chat.id, """def newfunc(n):
    def myfunc(x):
     return x + n
     return myfunc""", reply_markup=keyboardback)
+    #import
     elif message.text.lower() == 'import':
         keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
@@ -131,12 +144,68 @@ print("Employee.__dict__:", Employee.__dict__) """, reply_markup=keyboardback)
 
 Каждая программа может импортировать модуль и получить доступ к его классам, функциям и объектам. Нужно заметить, что модуль может быть написан не только на Python, а например, на C или C++.""",
                          reply_markup=keyexam)
-
+    #Примеры import
     elif message.text.lower() == 'примеры import':
         bot.send_message(message.chat.id, """import random
         ВНИМАНИЕ: БОЛЬШИНСТВО МОДУЛЕЙ ПЕРЕД ИМПОРТОМ ТРЕБУЮТ ИНСТАЛЯЦИИ В КОНСОЛИ! ПРИМЕР: pip install модуль""",
                          reply_markup=keyboardback)
+    #2D arrays
+    elif message.text.lower() == '2d arrays':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
+        bot.send_message(message.chat.id, '2D arrays', reply_markup=keyexam)
+    #Примеры 2d arrays
+    elif message.text.lower() == 'примеры 2d arrays':
+        bot.send_message(message.chat.id, """keys = [[1, 2, 3]
+        [4, 5, 6]
+        [7, 8, 9]
+        ["*", 0, "#"]]
+        
+        print(keys[0][1], end ="")""", reply_markup=keyboardback)
+    #multiplicity
+    elif message.text.lower() == 'multiplicity':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
+        bot.send_message(message.chat.id, 'multiplicity', reply_markup=keyexam)
+    #Примеры multiplicity
+    elif message.text.lower() == 'примеры multiplicity':
+        bot.send_message(message.chat.id, """colors = {"yellow", "green", "red", "blue", "purple"}
+    print(color)""", reply_markup=keyboardback)
+    #arrays
+    elif message.text.lower() == 'arrays':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
+        bot.send_message(message.chat.id, 'arrays', reply_markup=keyexam)
+    #Примеры arrays
+    elif message.text.lower() == 'примеры arrays':
+        bot.send_message(message.chat.id, """from array import *
+        
+         my_array = array(i, [1, 2, 3, 4])
+         
+         for i in my_array:
+            print(i)""", reply_markup=keyboardback)
+    #dictionary
+    elif message.text.lower() == 'dictionary':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
+        bot.send_message(message.chat.id, 'dictionary', reply_markup=keyexam)
+    #Примеры dictionary
+    elif message.text.lower() == 'примеры dictionary':
+        bot.send_message(message.chat.id, """solar_system = {"Jupiter": 1321,
+        "Mars": 0.15,
+        "Saturn": 764}
+        
+        print(solar_system["Saturn"]""", reply_markup=keyboardback)
+    #strings
+    elif message.text.lower() == 'strings':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
+        bot.send_message(message.chat.id, 'strings', reply_markup=keyexam)
+    #Примеры strings
+    elif message.text.lower() == 'примеры strings':
+        bot.send_message(message.chat.id, "пример", reply_markup=keyboardback)
 
+    #Донатик
     elif message.text.lower() == 'донатик':
         try:
             bot.send_photo(message.chat.id, 'https://i.ibb.co/pQbnQb6/photo-2022-02-01-20-44-26.jpg')
