@@ -31,7 +31,9 @@ def send_text(message):
     if message.text.lower() == 'help me pls':
         bot.send_message(message.chat.id, 'Выберите одну из предложенных конструкций', reply_markup=keyboard2)
 
+
     elif message.text.lower() == 'if/elif/else':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
         keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Конструкция if/elif/else позволяет делать ответвления в ходе программы. Программа уходит в ветку при выполнении определенного условия.
 
@@ -53,20 +55,23 @@ else:
     elif message.text.lower() == 'назад':
         bot.send_message(message.chat.id, 'Возварщаю вас назад', reply_markup=keyboard2)
     elif message.text.lower() == 'for':
-        #тут написать keyexam.row(f'Примеры {message.text.lower()}')
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Цикл for в языке программирования Python предназначен для перебора элементов структур данных и некоторых других объектов. Это не цикл со счетчиком, каковым является for во многих других языках.
 
 Что значит перебор элементов? Например, у нас есть список, состоящий из ряда элементов. Сначала берем из него первый элемент, затем второй, потом третий и так далее. С каждым элементом мы выполняем одни и те же действия в теле for. Нам не надо извлекать элементы по их индексам и заботиться, на каком из них список заканчивается, и следующая итерация бессмысленна. Цикл for сам переберет и определит конец.""",
-                         reply_markup=keyboardfor) #тут заменить на keyexam
+                         reply_markup=keyexam) #тут заменить на keyexam
     elif message.text.lower() == 'примеры for':
         bot.send_message(message.chat.id, """spisok = [10, 40, 20, 30]
 for element in spisok:
     print(element + 2)""", reply_markup=keyboardback)
 
     elif message.text.lower() == 'while':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id,
                          """Цикл while (“пока”) позволяет выполнить одну и ту же последовательность действий, пока проверяемое условие истинно. Условие записывается до тела цикла и проверяется до выполнения тела цикла. Как правило, цикл while используется, когда невозможно определить точное значение количества проходов исполнения цикла.""",
-                         reply_markup=keyboardwhile)
+                         reply_markup=keyexam)
 
     elif message.text.lower() == 'примеры while':
         bot.send_message(message.chat.id, """i = 1
@@ -76,6 +81,8 @@ while i <= 10:
 """, reply_markup=keyboardback)
 
     elif message.text.lower() == 'class':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Класс — тип, описывающий устройство объектов. Объект — это экземпляр класса. Класс можно сравнить с чертежом, по которому создаются объекты.
 
 Python соответствует принципам объектно-ориентированного программирования. В python всё является объектами - и строки, и списки, и словари, и всё остальное.
@@ -83,7 +90,7 @@ Python соответствует принципам объектно-ориен
 Но возможности ООП в python этим не ограничены. Программист может написать свой тип данных (класс), определить в нём свои методы.
 
 Это не является обязательным - мы можем пользоваться только встроенными объектами. Однако ООП полезно при долгосрочной разработке программы несколькими людьми, так как упрощает понимание кода.""",
-                         reply_markup=keyboardclass)
+                         reply_markup=keyexam)
     elif message.text.lower() == 'примеры class':
         bot.send_message(message.chat.id, """
 class Employee:   
@@ -107,19 +114,23 @@ print("Employee.__module__:", Employee.__module__)
 print("Employee.__bases__:", Employee.__bases__)  
 print("Employee.__dict__:", Employee.__dict__) """, reply_markup=keyboardback)
     elif message.text.lower() == 'def':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id,
                          """Функция в python - объект, принимающий аргументы и возвращающий значение. Обычно функция определяется с помощью инструкции def.""",
-                         reply_markup=keyboarddef)
+                         reply_markup=keyexam)
     elif message.text.lower() == 'примеры def':
         bot.send_message(message.chat.id, """def newfunc(n):
    def myfunc(x):
     return x + n
     return myfunc""", reply_markup=keyboardback)
     elif message.text.lower() == 'import':
+        keyexam = telebot.types.ReplyKeyboardMarkup(True)
+        keyexam.row(f'Примеры {message.text.lower()}')
         bot.send_message(message.chat.id, """Модулем в Python называется любой файл с программой (да-да, все те программы, которые вы писали, можно назвать модулями). В этой статье мы поговорим о том, как создать модуль, и как подключить модуль, из стандартной библиотеки или написанный вами.
 
 Каждая программа может импортировать модуль и получить доступ к его классам, функциям и объектам. Нужно заметить, что модуль может быть написан не только на Python, а например, на C или C++.""",
-                         reply_markup=keyboardimport)
+                         reply_markup=keyexam)
 
     elif message.text.lower() == 'примеры import':
         bot.send_message(message.chat.id, """import random
